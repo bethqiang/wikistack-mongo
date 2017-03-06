@@ -11,12 +11,19 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  const page = new Page({
-    title: req.body.title,
-    content: req.body.content,
-    tags: req.body.tags.split(', ')
-  });
-  page.save()
+  User.findOrCreate({
+    name: req.body.name,
+    email: req.body.email
+  })
+  .then(user => {
+    const page = new Page({
+      title: req.body.title,
+      content: req.body.content,
+      tags: req.body.tags.split(', '),
+      author: user._id
+    });
+    return page.save();
+  })
   .then(createdPage => res.redirect(createdPage.route))
   // Still unsure of how to hook moongoose into native promises to use .catch
   .then(null, next);
@@ -34,7 +41,7 @@ router.get('/search', function (req, res, next) {
 // Needs to be below add & search
 router.get('/:urlTitle', (req, res, next) => {
   Page.findOne({ urlTitle: req.params.urlTitle })
-  .exec()
+  .populate('author')
   .then(foundPage => {
     if (foundPage === null) {
       res.status(404).send();

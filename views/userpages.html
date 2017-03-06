@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <h3>Pages written by {{ user.name }}</h3>
+  <hr>
+  <ul class="list-unstyled">
+    <ul>
+      {% for page in pages %}
+        <li>
+          {{ page | pageLink }}
+        </li>
+      {% endfor %}
+    </ul>
+  </ul>
+{% endblock %}

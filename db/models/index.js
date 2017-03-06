@@ -55,6 +55,18 @@ const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true }
 });
 
+// Arrow function here?
+userSchema.statics.findOrCreate = function (props) {
+  const self = this;
+  return self.findOne({ email: props.email }).exec().then(user => {
+    if (user) return user;
+    else return self.create({
+      email: props.email,
+      name:  props.name
+    });
+  });
+};
+
 // mongoose.model is called to compile the schemas into collection-managing models
 const Page = mongoose.model('Page', pageSchema);
 const User = mongoose.model('User', userSchema);

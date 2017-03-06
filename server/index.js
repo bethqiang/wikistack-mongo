@@ -26,6 +26,8 @@ swig.setDefaults({ cache: false });
 // Routes
 const wikiRouter = require('./routes/wiki');
 app.use('/wiki', wikiRouter);
+const usersRouter = require('./routes/users');
+app.use('/users', usersRouter);
 
 // Basic route
 app.get('/', (req, res, next) => res.redirect('/wiki'));
