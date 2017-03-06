@@ -1,0 +1,28 @@
+{
+  "name": "wikistack-mongo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "nodemon -e html,js,css server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bethqiang/wikistack-mongo.git"
+  },
+  "keywords": [],
+  "author": "Beth Qiang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bethqiang/wikistack-mongo/issues"
+  },
+  "homepage": "https://github.com/bethqiang/wikistack-mongo#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.8.6",
+    "morgan": "^1.8.1",
+    "nodemon": "^1.11.0",
+    "swig": "^1.4.2"
+  }
+}
