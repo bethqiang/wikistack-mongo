@@ -14,7 +14,7 @@ app.use(bodyParser.json());
 
 // Swig stuff
 // Point res.render to the proper directory
-app.set('views', path.join(__dirname, '..', '/view'));
+app.set('views', path.join(__dirname, '..', '/views'));
 // Have res.render work with html files
 app.set('view engine', 'html');
 // When res.render works with html files, have it use swig to do so
