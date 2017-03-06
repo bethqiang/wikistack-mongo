@@ -4,7 +4,11 @@ const models = require('../../db/models');
 const Page = models.Page;
 const User = models.User;
 
-router.get('/', (req, res, next) => res.redirect('/'));
+router.get('/', (req, res, next) => {
+  Page.find({}).exec()
+  .then(pages => res.render('index', { pages: pages }))
+  .then(null, next);
+});
 
 router.post('/', (req, res, next) => {
   const page = new Page({

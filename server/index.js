@@ -4,6 +4,7 @@ const port = 3000;
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const swig = require('swig');
+require('../filters')(swig);
 const path = require('path');
 
 // Middleware
@@ -27,7 +28,7 @@ const wikiRouter = require('./routes/wiki');
 app.use('/wiki', wikiRouter);
 
 // Basic route
-app.get('/', (req, res, next) => res.render('index'));
+app.get('/', (req, res, next) => res.redirect('/wiki'));
 
 // Start server
 app.listen(port, () => console.log('Listening on port ' + port));
