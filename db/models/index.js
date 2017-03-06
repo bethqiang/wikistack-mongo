@@ -16,7 +16,8 @@ const pageSchema = new mongoose.Schema({
   // Passing Date.now instead of invoking it so that invocation registers
   // when the document is created instead of as soon as our app boots
   date:     { type: Date, default: Date.now },
-  author:   { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+  author:   { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  tags:     { type: [String], index: true }
 });
 
 // Virtual fields
@@ -32,6 +33,22 @@ pageSchema.pre('validate', function (next) {
   }
   next();
 });
+
+pageSchema.statics.findByTag = function (tag) {
+  return Page.find({
+    tags: {
+      $in: [tag]
+    }
+  }).exec();
+};
+
+pageSchema.methods.findSimilar = function () {
+  return Page.find({
+    tags: { $in: this.tags },
+    _id: { $ne: this._id }
+  }).exec();
+};
+
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },

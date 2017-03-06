@@ -2,6 +2,10 @@
 
 {% block content %}
   <h3>Pages</h3>
+  <form method="GET" action="/wiki/search">
+    <input type="text" name="search" />
+    <button type="submit">Search</button>
+  </form>
   <hr>
   {% if pages.length > 0 %}
     <ul>
