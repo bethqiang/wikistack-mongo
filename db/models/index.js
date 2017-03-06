@@ -20,7 +20,18 @@ const pageSchema = new mongoose.Schema({
 });
 
 // Virtual fields
-pageSchema.virtual('route').get(() => `/wiki/${this.urlTitle}`);
+pageSchema.virtual('route').get(function () {return `/wiki/${this.urlTitle}`;});
+
+// Pre-validate hook
+// Uses the title field to generate urlTitle before any page instance is validated
+pageSchema.pre('validate', function (next) {
+  if (this.title) {
+    this.urlTitle = this.title.replace(/\s/g, '_').replace(/\W/g, '');
+  } else {
+    this.urlTitle = Math.random().toString(36).substring(2, 7);
+  }
+  next();
+});
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },

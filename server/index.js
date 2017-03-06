@@ -8,7 +8,7 @@ const path = require('path');
 
 // Middleware
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, './public')));
+app.use(express.static(path.join(__dirname, '..', './public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -21,6 +21,10 @@ app.set('view engine', 'html');
 app.engine('html', swig.renderFile);
 // Turn off swig's caching
 swig.setDefaults({ cache: false });
+
+// Routes
+const wikiRouter = require('./routes/wiki');
+app.use('/wiki', wikiRouter);
 
 // Basic route
 app.get('/', (req, res, next) => res.render('index'));
